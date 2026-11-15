@@ -255,10 +255,6 @@
       key: 'photos', name: 'Licensed stock-photo sourcing', price: 149, req: 'site',
       blurb: 'Licensed, hand-picked for your trade',
     },
-    revision: {
-      key: 'revision', name: 'Additional revision round', price: 149, req: 'any',
-      blurb: 'One more full round, any stage',
-    },
   };
 
   /* ── Branding and print ─────────────────────────────────────────────────

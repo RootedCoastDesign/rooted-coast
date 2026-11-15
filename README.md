@@ -35,8 +35,10 @@ The home page opens with one question, "What are we working on?", and a place to
 ![A conversation with MöR: a price card and a request being narrowed down](docs/mor.jpg)
 
 - **Plain-language help.** Visitors describe what they need in their own words. MöR answers from the site's own content and prices, and asks a few short questions to understand the job.
-- **Cards instead of walls of text.** Prices, past projects and the visitor's request appear as cards in the conversation. The request card fills in as the conversation goes, shows how many questions are left, and ends as a request the owner can act on.
-- **Streamed replies.** Answers appear as they are written, over a streamed response from a serverless function.
+- **Cards instead of walls of text.** Prices and past projects appear as small cards in the conversation. The visitor's request builds quietly in a thin strip above the message box, which opens to show what has been gathered so far, and becomes one card with a send button when it is ready.
+- **Short and steady.** Replies are kept short, a question is never asked a third time, and he recommends one package rather than listing them all.
+- **Streamed replies.** Answers appear word by word as they are written, over a streamed response from a serverless function.
+- **Prompt caching.** The long, unchanging instructions are cached between turns, so later replies in a conversation start faster and cost less.
 - **Private instructions.** MöR's instructions live only on the server. Each page sends the id of its approved set, and the server refuses anything else, so the page cannot be edited to change how he behaves.
 - **Private by design.** The API key stays on the server, requests are rate limited per visitor, and conversations are deleted after 90 days, as the privacy page says.
 
@@ -46,7 +48,7 @@ The home page opens with one question, "What are we working on?", and a place to
 - **Branching by service.** A website request, a software project and a computer repair each get their own short set of questions, a few at a time, with a "not sure" answer wherever one makes sense.
 - **Two emails.** The owner gets the request in the site's own design, with a signed private link to the full details. The visitor gets a confirmation with a copy of their answers.
 - **Spam protection without a puzzle.** A hidden field, a minimum time on the form and a per-visitor limit stop bots without asking people to prove they are human.
-- **Nothing lost.** Every request is saved before the email is sent, so a failed email never loses a request.
+- **Nothing lost, nothing exposed.** Every request is saved before the email is sent, so a failed email never loses a request. Requests and conversations are kept in a private storage area that only the server can read.
 
 ### Photo quote widget
 
@@ -69,6 +71,11 @@ Lines of code fall down the screen, and the characters that land inside the shap
 - **Fast on phones.** Images are sized and served as WebP, each page's styles are inlined, fonts are preloaded, and analytics load only after the first interaction or a few seconds after the page. The Lighthouse phone performance score went from 80 to 96 after this work.
 - **Search.** Lighthouse SEO scores 100 on the pages tested. Service and town pages carry structured data for Google.
 - **Sharing.** Every page has its own title, description, share image and share line, so a link posted on Facebook or in a text says which page it is.
+- **Security headers.** Every response carries headers that stop content sniffing, limit what is sent as the referrer, turn off browser features the site does not use, and keep the pages from being framed by other sites.
+
+## One footer everywhere
+
+Every page and every email ends with the same simple footer: the wordmark, one line about the business, email and call buttons, the page links and the legal line.
 
 ## Stack
 
@@ -79,7 +86,7 @@ Lines of code fall down the screen, and the characters that land inside the shap
 | Assistant | Anthropic API, streamed |
 | Payments | Stripe Checkout |
 | Email | Resend |
-| Storage | Neon Postgres and Vercel Blob |
+| Storage | Neon Postgres, and Vercel Blob (a private store for requests and conversations, a public one for photo quotes) |
 | Tests | Node.js scripts in `test/`, plus the price check |
 
 ## Structure

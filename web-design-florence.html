@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Web Design in Florence, Oregon | Rooted Coast Design</title>
-<script>window.__MOR_BRAIN="0dce9d42aabacf9beb37bbe6ec06d2bbf875e22440eda67542420d9c966d3550";window.__RC_QUOTE="/api/quote";window.__RC_CHECKOUT="/api/create-checkout";(function(){if(window.rcMor&&window.rcMor.use)return;
+<script>window.__MOR_BRAIN="503bb96dd1e02942ef62640ce788a89f9d191a371a711f655c495b5152e11cb6";window.__RC_QUOTE="/api/quote";window.__RC_CHECKOUT="/api/create-checkout";(function(){if(window.rcMor&&window.rcMor.use)return;
 var log=[],conv='';function newId(){var a=new Uint8Array(12),s='';(window.crypto||window.msCrypto).getRandomValues(a);for(var i=0;i<a.length;i++)s+=('0'+a[i].toString(16)).slice(-2);return s;}
 window.__morConv=function(){return conv;};
 function sample(input,o){o=o||{};var rules=String((input[0]||{}).content||'').replace(/\n\nThe conversation follows\.$/,''),tools=(o.tools||[]),defs=tools.map(function(t){return {name:t.name,description:t.description,inputSchema:t.inputSchema};}),
@@ -25,7 +25,7 @@ function sample(input,o){o=o||{};var rules=String((input[0]||{}).content||'').re
       var t=tools.filter(function(x){return x.name===name;})[0]||(inp.job&&inp.summary?tools.filter(function(x){return x.name==='update_request';})[0]:null);
       if(t&&run){try{t.execute(inp);}catch(e){}}if(typeof inp.next_question==='string')nq=inp.next_question;return (name&&!tools.some(function(x){return x.name===name;})?name:'')+' ';})
       .replace(/<\/?(?:invoke|function_calls|parameter)[^>]*>/g,' ').replace(/[ \t]{2,}/g,' ').trim();
-    return out||nq||(run?'Your request is on the card below.':'');}
+    return out||nq||(run?'I have noted that down.':'');}
   function hide(tx){return tx.indexOf('<parameter')<0&&tx.indexOf('<invoke')<0?tx:tx.replace(/(?:[a-z_]{3,40}[ \t]*)?<(?:parameter|invoke)[\s\S]*?(?:<\/invoke>|$)/g,' ').replace(/[ \t]{2,}/g,' ');}
   function show(cur){if(o.onText){var all=hide(once(said.concat(cur?[cur]:[])));if(all.trim())o.onText({text:all});}}
   function call(){return fetch('/api/mor',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify(window.__MOR_BRAIN?{brain:window.__MOR_BRAIN,messages:log,conv:conv,page:location.pathname}:{rules:rules,tools:defs,messages:log,conv:conv,page:location.pathname})}).then(function(r){
@@ -490,6 +490,12 @@ html:not(.chatting) #reqpill{display:none}
 .has-model .scene #sea{opacity:1}
 
 /* ---------- Inner page ---------- */
+/* readability (Johnathon, 2026-11-15, site walkthrough): small spaced capitals no smaller than 12px, and the
+   small text links get a larger invisible tap area so a thumb finds them */
+.label,.w-label,.w-k{font-size:max(.75rem,12px)!important;letter-spacing:.14em!important}
+.tl,.w-tl{position:relative}
+.tl::after,.w-tl::after{content:"";position:absolute;left:-6px;right:-6px;top:-12px;bottom:-12px}
+
 .page .scene{background:radial-gradient(90% 60% at 70% 0%,#0b0b0b 0%,#050505 45%,var(--bg) 80%)}
 .page .horizon,.page .sky,.page .glow,.page .mist,.page .scene .coretag{display:none!important}
 .page nav{height:72px;background:rgba(4,4,4,.72)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line);padding-bottom:0}
@@ -661,7 +667,7 @@ html:not(.chatting) #reqpill{display:none}
 .dmenu:has(#newchat[hidden]){display:none}
 .mdock .dmenu #newchat{position:absolute;right:0;top:calc(100% + 2px);z-index:5;white-space:nowrap;border:1px solid var(--line);border-radius:12px;background:#0d0d0d;padding:.9rem 1.1rem;color:var(--ink);box-shadow:0 20px 40px -20px #000}
 .mdock .thread{display:flex;flex-direction:column;gap:1.1rem;padding:1rem 1.1rem 1.2rem!important;scroll-behavior:auto;overflow-anchor:none}
-.mdock .thread::before{content:"Ask about a website, a price, or which package fits.";color:var(--dim);font-size:.92rem;line-height:1.5}
+.mdock .thread::before{content:"Ask about a website, software or a computer.";color:var(--dim);font-size:.92rem;line-height:1.5}
 .turn{display:flex;flex-direction:column;gap:.85rem}
 .mdock .msg.me{font-size:1rem;line-height:1.45}
 .mdock .msg.ai{font-size:1.05rem;line-height:1.55}
@@ -685,7 +691,7 @@ html:not(.chatting) #reqpill{display:none}
 /* ---------- The chat as a conversation: MöR on the left, the visitor on the right ---------- */
 .mdock .thread{gap:.9rem;padding:1rem .9rem 1.1rem!important}
 .mdock .thread::before{display:none}
-.mdock .thread:not(:has(.turn))::before{display:block;content:"Ask about a website, a price, or which package fits.";color:var(--dim);font-size:.92rem;line-height:1.5;padding:0 .2rem}
+.mdock .thread:not(:has(.turn))::before{display:block;content:"Ask about a website, software or a computer.";color:var(--dim);font-size:.92rem;line-height:1.5;padding:0 .2rem}
 .mdock .turn{gap:.55rem}
 .mdock .msg{max-width:86%;padding:.68rem .95rem;font:400 1rem/1.5 var(--sans);color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere;animation:none}
 .mdock .msg.ai{align-self:flex-start;border:1px solid var(--line);border-radius:18px 18px 18px 5px;background:rgba(255,255,255,.055)}
@@ -738,6 +744,92 @@ html:not(.chatting) #reqpill{display:none}
 .mcard .rw .pr{font-size:1.15rem;white-space:nowrap}
 .mcard .rw small{display:block;margin-top:.2rem}
 .mcard .rw:hover b{color:var(--sea)}
+
+@keyframes chatin{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+/* ---------- Quiet strip: the request in one line above the message box ---------- */
+#reqstrip{order:-2;display:flex;align-items:center;gap:.7rem;width:100%;box-sizing:border-box;margin:0 0 .55rem;padding:.55rem .85rem;border:1px solid rgba(var(--sea-rgb),.3);border-radius:16px;background:rgba(var(--sea-rgb),.05);color:var(--ink);font:inherit;text-align:left;cursor:pointer;overflow:hidden;max-height:4.5rem;transition:opacity .35s,transform .45s var(--ease),max-height .45s var(--ease),margin .45s,padding .45s;animation:chatin .5s var(--ease) both}
+#reqstrip[hidden]{display:none!important}
+#reqstrip.gone{opacity:0;transform:translateY(6px);max-height:0;margin:0;padding-top:0;padding-bottom:0;border-width:0}
+#reqstrip svg{flex:0 0 auto;width:24px;height:24px}
+#reqstrip .rg{fill:none;stroke:rgba(255,255,255,.12);stroke-width:2.4}
+#reqstrip .rf{fill:none;stroke:var(--sea);stroke-width:2.4;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset .8s var(--ease)}
+#reqstrip .st{flex:1 1 auto;min-width:0;display:block}
+#reqstrip .st b{display:block;font:500 .86rem/1.25 var(--sans);color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#reqstrip .st b em{font-style:normal;color:var(--sea)}
+#reqstrip .st>span{display:block;margin-top:.1rem;font-size:.8rem;line-height:1.3;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#reqstrip .st>span u{text-decoration:none;color:var(--sea)}
+#reqstrip .st>span.new{animation:stripin .55s var(--ease) both}
+@keyframes stripin{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+#reqstrip .cv{flex:0 0 auto;color:var(--dim);font-size:.9rem;line-height:1;transition:transform .35s var(--ease)}
+#reqstrip[aria-expanded="true"] .cv{transform:rotate(180deg)}
+#reqstrip:focus-visible{outline:2px solid var(--sea);outline-offset:2px}
+#reqpanel{order:-3;width:100%;box-sizing:border-box;margin:0 0 .5rem;padding:.9rem 1rem .5rem;border:1px solid var(--line);border-radius:18px;background:rgba(10,10,10,.96);max-height:min(44vh,22rem);overflow:auto;overscroll-behavior:contain;text-align:left;animation:chatin .4s var(--ease) both}
+#reqpanel[hidden]{display:none!important}
+#reqpanel .label{font:400 .64rem/1.4 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--dim)}
+#reqpanel .pj{margin:.35rem 0 0;font:500 1rem/1.3 var(--sans);color:var(--ink)}
+#reqpanel .rows{list-style:none;margin:.6rem 0 0;padding:0}
+#reqpanel .rows li{display:flex;justify-content:space-between;gap:1rem;padding:.55rem 0;border-top:1px solid var(--line);font-size:.88rem}
+#reqpanel .rows li span:first-child{color:var(--dim);flex:0 0 auto}
+#reqpanel .rows li span:last-child{color:var(--ink);text-align:right}
+#reqpanel .small{margin:.5rem 0 .4rem;font-size:.8rem;color:var(--dim);line-height:1.45}
+/* the one card that ends the conversation eases in, its lines one after another */
+#thread .card{animation:chatin .6s var(--ease) both}
+#thread .card.final .rows li{animation:chatin .5s var(--ease) both}
+#thread .card.final .rows li:nth-child(2){animation-delay:.08s}#thread .card.final .rows li:nth-child(3){animation-delay:.16s}#thread .card.final .rows li:nth-child(4){animation-delay:.24s}#thread .card.final .rows li:nth-child(5){animation-delay:.32s}#thread .card.final .rows li:nth-child(n+6){animation-delay:.4s}
+.sendbox[hidden],.card-go[hidden]{display:none!important}
+.sendalt{display:block;margin:.8rem 0 0;padding:.35rem 0;border:0;background:none;color:var(--body);font:400 .92rem/1.3 var(--sans);cursor:pointer;text-align:left}
+.sendalt u{text-decoration-color:rgba(var(--sea-rgb),.5);text-underline-offset:.25em}
+.sendalt:hover u{text-decoration-color:var(--sea)}
+#thread .sendalt{font-family:var(--sans)!important;letter-spacing:0!important;text-transform:none!important;font-size:.92rem!important}
+#thread .sendalt u{font:inherit!important;letter-spacing:inherit!important;text-transform:none!important}
+#thread .card-go.quiet{background:none!important;color:var(--ink)!important;border:1px solid var(--line)!important}
+/* cards in the chat, a size smaller and tighter (Johnathon, 2026-11-15: MöR inside and out) */
+#thread .card{padding:1.05rem 1.15rem 1rem!important}
+#thread .card h3{font-size:1.4rem!important;line-height:1.15!important;margin-top:.45rem!important}
+#thread .card>p{font-size:.9rem!important;margin-top:.35rem!important}
+#thread .card .rows{margin-top:.7rem!important}
+#thread .card .rows li{padding:.55rem 0!important;font-size:.9rem!important;gap:1rem!important}
+#thread .card .rows li span:last-child{white-space:nowrap}
+#thread .card .small{font-size:.8rem!important}
+#thread .card .btn{padding:.8rem 1.15rem!important;font-size:.92rem!important}
+#thread .card input{padding:.7rem .9rem!important;margin-top:.55rem!important}
+#thread .sendbox input[hidden],#thread .sendbox .btn[hidden]{display:none!important}
+#thread .sendnote{color:var(--sea)!important}
+#thread .card.work .wk{list-style:none;margin:.55rem 0 0;padding:0}
+#thread .card.work .wk{border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important;padding:0!important;max-height:none!important;overflow:visible!important}
+#thread .card.work .wk li{padding:.6rem 0;border-top:1px solid var(--line)}
+#thread .card.work .wk a{font:500 .95rem/1.3 var(--sans);color:var(--ink);text-decoration:none;border:0}
+#thread .card.work .wk a::after{content:" \2197";color:var(--sea)}
+#thread .card.work .wk a:hover{color:var(--sea)}
+#thread .card.work .wk p{margin:.15rem 0 0!important;font-size:.82rem!important;line-height:1.4!important;color:var(--dim)!important}
+/* the closing screen after a request is sent, inside the chat panel on these pages (the homepage has its own) */
+html.sentview .mdock #thread,html.sentview .mdock .composer{display:none!important}
+.mdock #sentview{flex:1 1 auto;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:1.6rem 1.3rem;overflow:auto;text-align:left;animation:chatin .5s var(--ease) both}
+.mdock #sentview .label{font:400 .64rem/1.4 var(--mono);letter-spacing:.22em;text-transform:uppercase;color:var(--sea)}
+.mdock #sentview h2{margin:.7rem 0 0;font:600 1.6rem/1.15 var(--sans);letter-spacing:-.03em;color:var(--ink)}
+.mdock #sentview p{margin:.55rem 0 0;font-size:.98rem;line-height:1.5;color:var(--body)}
+.mdock #sentview p.small{font-size:.85rem;color:var(--dim);overflow-wrap:anywhere}
+.mdock #sentview .sv-acts{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.4rem}
+.mdock #sentview .btn{display:inline-flex;align-items:center;margin:0;text-decoration:none}
+.mdock #sentview .sv-back{margin-top:1rem;padding:.4rem 0;border:0;background:none;color:var(--body);font:400 .92rem/1.3 var(--sans);text-decoration:underline;text-decoration-color:rgba(255,255,255,.25);text-underline-offset:.28em;cursor:pointer}
+/* care plans in the chat: one compact card (Johnathon, 2026-11-15) */
+#thread .card.care{padding:1rem 1.15rem .9rem!important;max-width:30rem}
+#thread .card.care .cp{list-style:none;margin:.55rem 0 0;padding:0}
+#thread .card.care .cp li{padding:.65rem 0;border-top:1px solid var(--line)}
+#thread .card.care .h{display:flex;justify-content:space-between;align-items:baseline;gap:1rem}
+#thread .card.care .h b{font:500 1rem/1.3 var(--sans);color:var(--ink)}
+#thread .card.care .h span{font:400 .95rem/1.3 var(--sans);color:var(--ink);white-space:nowrap}
+#thread .card.care .cp p{margin:.2rem 0 0!important;font-size:.82rem!important;line-height:1.45!important;color:var(--dim)!important}
+#thread .card.care .h.one{margin-top:.45rem}
+#thread .card.care .h.one b{font:500 1.35rem/1.15 var(--serif)}
+#thread .card.care .inc{list-style:none;margin:.6rem 0 0;padding:.55rem 0 0;border-top:1px solid var(--line);display:grid;gap:.3rem}
+#thread .card.care .inc li{position:relative;padding-left:.95rem;font-size:.86rem;line-height:1.4;color:var(--body);text-align:left}
+#thread .card.care .inc li::before{content:"";position:absolute;left:0;top:.6em;width:5px;height:5px;border-radius:50%;background:rgba(var(--sea-rgb),.7)}
+/* MöR's words fade in as they are written, and the conversation glides to the newest line */
+.msg.ai .sw{animation:swin .6s var(--ease) both}
+@keyframes swin{from{opacity:0;filter:blur(2px)}to{opacity:1;filter:none}}
+#thread{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){#reqstrip,#reqpanel,#thread .card,#thread .card.final .rows li,.msg.ai .sw,#reqstrip .st>span.new{animation:none!important;transition:none!important}#thread{scroll-behavior:auto}}
 
 /* One soft fade (Johnathon, 2026-11-13): the page appears in one pass, with nothing arriving late or moving. Until the page has settled no part animates on its own; after that, blocks further down fade in as they are scrolled to. The 1.5s rule shows the page anyway if the script never runs. */
 /* The fade runs from the top of the screen down (Johnathon, 2026-11-13): a dark cover over the page clears from the top edge to the bottom in a little over half a second. It is plain CSS, so the page shows even if the script never runs. */
@@ -1119,6 +1211,18 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
 .sheet .c{gap:.1rem}.sheet .c .sc{margin:0 0 .2rem}
 .sheet .c a{font:400 .95rem/1.4 var(--mono);color:#D5DBE0;padding:.5rem 0}
 
+[data-mf]{position:relative;z-index:2;border-top:1px solid var(--line);background:radial-gradient(60% 120% at 50% 0%,rgba(var(--sea-rgb),.07),transparent 70%),#020202;margin-top:3rem;padding:3.2rem max(20px,env(safe-area-inset-left,0px)) calc(1.8rem + env(safe-area-inset-bottom,0px));text-align:center;font:400 .9rem/1.5 var(--sans);color:var(--dim)}
+[data-mf-in]{max-width:46rem;margin:0 auto}
+[data-mf] p{margin:0}
+[data-mf-wm]{font:600 1.7rem/1 var(--sans);letter-spacing:-.045em;color:var(--ink)}[data-mf-wm] b{font-weight:300}
+[data-mf-tag]{margin-top:.7rem!important;color:var(--body)}
+[data-mf-acts]{display:flex;flex-wrap:wrap;justify-content:center;gap:.6rem;margin-top:1.6rem!important}
+[data-mf-pill]{display:inline-flex;align-items:center;min-height:44px;padding:0 1.1rem;border:1px solid var(--line);border-radius:999px;color:var(--ink)!important;text-decoration:none!important;font-size:.92rem;transition:border-color .3s}
+[data-mf-pill]:hover,[data-mf-pill]:focus-visible{border-color:rgba(var(--sea-rgb),.6)}
+[data-mf-l]{display:flex;flex-wrap:wrap;justify-content:center;gap:.2rem 1.6rem;margin-top:1.8rem!important}
+[data-mf-l] a{color:var(--body)!important;text-decoration:none!important;padding:.35rem 0}[data-mf-l] a:hover,[data-mf-l] a:focus-visible{color:var(--ink)!important}
+[data-mf-legal]{margin-top:1.2rem!important;font-size:.82rem}[data-mf-legal] a{color:var(--dim)!important;text-decoration:none!important}[data-mf-legal] a:hover{color:var(--body)}
+@media(max-width:860px){[data-mf]{padding-bottom:calc(5.8rem + env(safe-area-inset-bottom,0px))}}
 .nopill #dockbtn{display:none!important}
 .nopill:not(.chatting) #MoR{opacity:0!important}
 .page.nopill .scene{display:none}
@@ -1191,23 +1295,7 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
   <h2>Ready to get found in Florence?</h2>
   <p class="w-lede">A free 15 minute call. I look at your business and tell you what I would build and what it costs.</p>
   <p class="w-racts"><a class="w-btn" href="request.html">Request a quote <i>→</i></a></p><p class="w-rrows"><a href="mailto:hello@rootedcoastdesign.com">Email hello@rootedcoastdesign.com <i>→</i></a><a href="tel:+15413299273">Call (541) 329-9273 <i>→</i></a></p>
-</div></section>
-<footer class="w-ft w-gut w-tb"><div class="w-wrap">
-  <div class="w-tbx">
-    <p class="w-tbar" aria-hidden="true"><i></i>MINGW64:/c/rootedcoast/design</p>
-    <div class="w-tbody">
-      <p class="w-pr" aria-hidden="true"><span class="w-tg">rooted@coast</span> <span class="w-tp">MINGW64</span> <span class="w-ty">~/design</span> <span class="w-tc">(main)</span></p>
-      <p class="w-cmd" aria-hidden="true">$ ls</p>
-      <p class="w-out"><a href="index.html">home/</a><a href="tech.html">tech/</a><a href="websites.html">websites/</a><a href="software.html">software/</a><a href="about.html">about/</a><a href="contact.html">contact/</a></p>
-      <p class="w-out w-sm"><a href="request.html">quote/</a><a href="service-areas.html">service-areas/</a><a href="privacy.html">privacy/</a><a href="terms.html">terms/</a></p>
-      <p class="w-cmd" aria-hidden="true">$ cat contact.txt</p>
-      <p class="w-out w-pl"><a href="mailto:hello@rootedcoastdesign.com">hello@rootedcoastdesign.com</a><a href="tel:+15413299273">(541) 329-9273</a></p>
-      <p class="w-cm"># Websites, software and computer repair. Bandon, Oregon.</p>
-      <p class="w-cmd" aria-hidden="true">$ <i class="w-cur"></i></p>
-    </div>
-  </div>
-  <p class="w-cp">© 2026 Rooted Coast Design LLC</p>
-</div></footer></div><a id="start" hidden></a>
+</div></section><div role="contentinfo" data-mf><div data-mf-in><p data-mf-wm>rooted<b>coast</b></p><p data-mf-tag>Websites, software and computer repair · Bandon, Oregon</p><p data-mf-acts><a data-mf-pill href="mailto:hello@rootedcoastdesign.com">Email hello@rootedcoastdesign.com</a><a data-mf-pill href="tel:+15413299273">Call (541) 329-9273</a></p><p data-mf-l><a href="websites.html">Websites</a><a href="software.html">Software</a><a href="tech.html">Tech</a><a href="about.html">About</a><a href="contact.html">Contact</a></p><p data-mf-legal>© 2026 Rooted Coast Design LLC · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p></div></div></div><a id="start" hidden></a>
 
 <button type="button" id="dockbtn" hidden>Ask MöR</button>
 <aside class="dock mdock" id="dock" role="dialog" aria-label="Chat with MöR" inert>
@@ -1567,34 +1655,77 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
 
   // ---------- Inline cards ----------
   var thread=$('thread'),cur=null;
+  function lastTurnOrThread(){var c=card('','');var p=c.parentNode;c.remove();return p;}
   function lastTurn(){var t=thread.querySelectorAll('.turn');return t.length?t[t.length-1]:null;}
-  function card(kind,title,text){var c=el('div','card');c.append(el('div','label',kind),el('h3',null,title));if(text)c.append(el('p',null,text));(lastTurn()||thread).append(c);bottom();return c;}
+  function card(kind,title,text){var c=el('div','card');c.append(el('div','label',kind));if(title)c.append(el('h3',null,title));if(text)c.append(el('p',null,text));(lastTurn()||thread).append(c);bottom();return c;}
   function rows(c,list,total){var u=el('ul','rows');list.forEach(function(r){if(!r[1])return;var li=el('li');li.append(el('span',null,r[0]),el('span',null,r[1]));u.append(li);});if(total){var t=el('li','t');t.append(el('span',null,total[0]),el('span',null,total[1]));u.append(t);}c.append(u);return u;}
   var REQ=null,KN='',KC='',TECHFEE={drop:75,visit:100}; // approved by Johnathon 2026-11-11; move into pricing.js with the rebuild
-  function request(i){
-    var old=$('reqcard');if(old){if(old.querySelector('[data-n]'))KN=old.querySelector('[data-n]').value;if(old.querySelector('[data-c]'))KC=old.querySelector('[data-c]').value;old.remove();}
-    var det=arr(i.details,10,90),need=arr(i.still_needed,6,70),ready=!!i.ready&&!need.length&&det.length>=2;
-    REQ={side:i.side==='design'?'design':'tech',job:clip(i.job,60),summary:clip(i.summary,320),details:det,need:need,ready:ready};
-    var c=card('Your request · '+(REQ.side==='tech'?'Rooted Coast Tech':'Rooted Coast Design'),REQ.job,REQ.summary);c.id='reqcard';c.classList.add('req');if(ready)c.classList.add('ready');
-    var total=det.length+need.length,bar=el('div','meter'),fill=el('i');fill.style.width=(total?Math.round(det.length/total*100):0)+'%';bar.append(fill);
-    var st=el('div','label');st.style.marginTop='1rem';st.textContent=ready?'Ready to send':(need.length?'Narrowing it down · '+det.length+' of '+total:'A little more needed');c.append(st,bar);
-    if(det.length)rows(c,det.map(function(d){var k=d.indexOf(':');return k>0&&k<28?[d.slice(0,k),d.slice(k+1).trim()]:['',d];}).map(function(r){return [r[0]||'Note',r[1]];}));
-    if(need.length){var nl=el('p','small');nl.style.marginTop='.9rem';nl.textContent='Still to cover: '+need.join(' · ');c.append(nl);}
-    var n=el('input');n.placeholder='Name (optional)';n.value=KN||clip(i.name,60);n.setAttribute('aria-label','Name (optional)');n.setAttribute('data-n','');
-    var t=el('input');t.placeholder='Phone or email';t.value=KC||clip(i.contact,80);t.setAttribute('aria-label','Phone or email');t.setAttribute('data-c','');
-    var b=el('button','btn','Send to Johnathon');b.type='button';var m=el('p','small');m.style.marginTop='.7rem';
-    if(ready)c.append(t,n,b,m);else{var left=need.length||Math.max(1,3-det.length);var nq=clip(i.next_question,170)||(need.length?need[0]+'?':'');if(nq){var nb=el('div','nextq');nb.append(el('div','label','Next question · '+left+' to go'),el('p',null,nq));c.append(nb);}else{m.textContent='A few quick answers and this can go to Johnathon: '+left+' to go.';c.append(m);}}
-    var pill=$('reqpill');pill.hidden=false;document.documentElement.classList.add('has-req');pill.textContent=REQ.job+' · '+(ready?'ready to send':det.length+' of '+total)+' ›';pill.classList.toggle('ready',ready);pill.onclick=function(){c.scrollIntoView({block:'center'});};
+  // ---- Quiet strip ----
+  // While MöR narrows the request down it lives in one slim line above the message box: a ring that fills, the newest
+  // detail, and a tap to see everything so far. Nothing is drawn in the conversation until the request is ready. Then it
+  // becomes one card: the website plan when there is one (its own button, plus "send it to Johnathon first"), otherwise
+  // the request itself with the contact fields and Send to Johnathon.
+  var strip=null,panel=null,RING=59.7;
+  function pair(d){var k=d.indexOf(':');return k>0&&k<28?[d.slice(0,k),d.slice(k+1).trim()]:['Note',d];}
+  function stripInit(){if(strip)return;var host=form.parentNode;
+    panel=el('div');panel.id='reqpanel';panel.hidden=true;
+    strip=el('button');strip.id='reqstrip';strip.type='button';strip.hidden=true;strip.setAttribute('aria-expanded','false');strip.setAttribute('aria-controls','reqpanel');
+    strip.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><circle class="rg" cx="12" cy="12" r="9.5"/><circle class="rf" cx="12" cy="12" r="9.5" stroke-dasharray="'+RING+'" stroke-dashoffset="'+RING+'"/></svg><span class="st"><b></b><span></span></span><span class="cv" aria-hidden="true">\u2303</span>';
+    host.insertBefore(strip,host.firstChild);host.insertBefore(panel,host.firstChild);
+    strip.onclick=function(){var on=panel.hidden;if(on)fillPanel();panel.hidden=!on;strip.setAttribute('aria-expanded',on?'true':'false');};}
+  function fillPanel(){if(!panel||!REQ)return;panel.textContent='';panel.append(el('div','label','Your request so far'),el('p','pj',REQ.job));
+    rows(panel,REQ.details.map(pair));if(REQ.need.length)panel.append(el('p','small','Still to cover: '+REQ.need.join(' \u00b7 ')));}
+  function showStrip(det,need,prev){stripInit();var total=Math.max(det.length+need.length,1),n=det.length;
+    strip.classList.remove('gone');strip.hidden=false;
+    strip.querySelector('.rf').setAttribute('stroke-dashoffset',String(+(RING*(1-n/total)).toFixed(2)));
+    var b=strip.querySelector('.st b');b.textContent=REQ.job+' \u00b7 ';b.append(el('em',null,n+' of '+total));
+    var fresh=det.filter(function(d){return prev.indexOf(d)<0;}),d=fresh.length?fresh[fresh.length-1]:det[det.length-1];
+    var line=el('span',fresh.length?'new':null);if(d){var p=pair(d);line.append(el('u',null,p[0]),document.createTextNode(' \u00b7 '+p[1]));}else line.textContent='Building as you talk';
+    strip.querySelector('.st span').replaceWith(line);
+    strip.setAttribute('aria-label','Your request, '+n+' of '+total+' details. Show the details');
+    if(!panel.hidden)fillPanel();}
+  function hideStrip(){if(!strip)return;panel.hidden=true;strip.setAttribute('aria-expanded','false');strip.classList.add('gone');setTimeout(function(){if(strip.classList.contains('gone'))strip.hidden=true;},460);}
+  function keepContact(c){var a=c.querySelector('[data-n]'),b=c.querySelector('[data-c]');if(a)KN=a.value;if(b)KC=b.value;}
+  // the contact fields and the button that sends the request, for whichever card ends the conversation
+  function sendBox(c){var w=el('div','sendbox'),st=c.querySelector('.label');
+    var t=el('input');t.placeholder='Phone or email';t.value=KC||'';t.setAttribute('aria-label','Phone or email');t.setAttribute('data-c','');t.autocomplete='email';
+    var n=el('input');n.placeholder='Name (optional)';n.value=KN||'';n.setAttribute('aria-label','Name (optional)');n.setAttribute('data-n','');n.autocomplete='name';
+    var b=el('button','btn','Send to Johnathon');b.type='button';var m=el('p','small');m.style.marginTop='.7rem';w.append(t,n,b,m);
     b.onclick=function(){var cv=t.value.trim();
       if(!(/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(cv)||cv.replace(/\D/g,'').length>=7)){m.textContent='Add a phone number or email so Johnathon can reach you.';t.focus();return;}
       b.disabled=true;n.disabled=t.disabled=true;
-      if(!window.__RC_QUOTE){c.classList.add('sent');st.textContent='Sent';KN=KC='';m.textContent='Prototype: nothing was actually sent. On the live site this request, with the full conversation, goes to hello@rootedcoastdesign.com.';return;}
+      if(!window.__RC_QUOTE){c.classList.add('sent');if(st)st.textContent='Sent';KN=KC='';t.hidden=n.hidden=b.hidden=true;m.textContent='Prototype: nothing was actually sent. On the live site this request, with the full conversation, goes to hello@rootedcoastdesign.com.';return;}
       m.textContent='Sending.';
       fetch(window.__RC_QUOTE,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({kind:'card',side:REQ.side,job:REQ.job,summary:REQ.summary,details:REQ.details,name:n.value.trim(),contact:cv,page:location.pathname,conv:(window.__morConv?window.__morConv():''),startedAt:Date.now()-Math.round(performance.now()),transcript:turns.slice(-40).map(function(x){return {role:x.role,text:String(x.content).slice(0,1200)};})})})
         .then(function(r){return r.json().then(function(j){return {s:r.status,j:j};});})
-        .then(function(x){if(!(x.s===200&&x.j&&x.j.ok))throw new Error('not sent');c.classList.add('sent');st.textContent='Sent';KN=KC='';m.textContent='Sent to Johnathon. He reads every request himself and replies within one business day.';setTimeout(function(){sentView(cv);},700);})
+        .then(function(x){if(!(x.s===200&&x.j&&x.j.ok))throw new Error('not sent');c.classList.add('sent');if(REQ)REQ.sent=true;if(st)st.textContent='Sent';KN=KC='';t.hidden=n.hidden=b.hidden=true;m.className='small sentnote';m.textContent='Sent to Johnathon. He reads every request himself and replies within one business day.';setTimeout(function(){sentView(cv);},700);})
         .catch(function(){b.disabled=false;n.disabled=t.disabled=false;m.textContent='That did not send. Try again, or call (541) 329-9273.';});};
-    return ready;
+    return w;}
+  // the plan card takes over sending once the request is ready: Starter and Standard keep their own button and offer
+  // "send it to Johnathon first"; custom work and add-ons are sent to Johnathon instead of a second form
+  function attachSend(pl){if(!pl||pl.querySelector('.sendbox')||pl.classList.contains('sent'))return;var box=sendBox(pl);
+    if(pl.dataset.direct){box.hidden=true;var alt=el('button','sendalt');alt.type='button';alt.append(document.createTextNode('or '),el('u',null,'send it to Johnathon first'));
+      alt.onclick=function(){alt.remove();box.hidden=false;var g0=pl.querySelector('.card-go');if(g0)g0.classList.add('quiet');var f=box.querySelector('[data-c]');if(f&&matchMedia('(hover:hover)').matches)f.focus({preventScroll:true});bottom();};pl.append(alt,box);}
+    else{var g=pl.querySelector('.card-go');if(g)g.hidden=true;pl.append(box);}}
+  function detachSend(pl){keepContact(pl);[].forEach.call(pl.querySelectorAll('.sendbox,.sendalt'),function(x){x.remove();});var g=pl.querySelector('.card-go');if(g)g.hidden=false;}
+  // a question MöR has already asked twice in a row is not asked a third time (audit, 2026-11-15)
+  function repeatQ(){var qs=turns.filter(function(t){return t.role==='assistant';}).slice(-2).map(function(t){var m=String(t.content).match(/[^.!?\n]*\?/g);return m?m[m.length-1].trim():'';});if(qs.length<2||!qs[0]||!qs[1])return '';var w=function(x){var o={};x.toLowerCase().replace(/[^a-z ]/g,' ').split(' ').forEach(function(k){if(k.length>3)o[k]=1;});return o;},A=w(qs[0]),B=w(qs[1]),n=0,t=0;for(var k in A){t++;if(B[k])n++;}var tb=Object.keys(B).length;return t&&n/Math.max(t,tb)>=.5?qs[1]:'';}
+  function request(i){
+    var det=arr(i.details,10,90),need=arr(i.still_needed,6,70),ready=!!i.ready&&!need.length&&det.length>=2,prev=REQ?REQ.details:[];
+    if(i.name&&!KN)KN=clip(i.name,60);if(i.contact&&!KC)KC=clip(i.contact,80);
+    var side=i.side==='design'?'design':'tech',turn0=REQ&&REQ.side===side&&!REQ.sent?REQ.turn0:(window.__morTurn||0);
+    REQ={side:side,job:clip(i.job,60),summary:clip(i.summary,320),details:det,need:need,ready:ready,turn0:turn0};
+    var old=$('reqcard'),pl=$('plancard');if(old&&old.classList.contains('sent'))old=null;
+    // the plan card only takes this request if it is a website plan made while this request was being worked out
+    if(pl&&!(side==='design'&&+pl.dataset.turn>=turn0)){detachSend(pl);pl=null;}
+    if(old){keepContact(old);old.remove();}
+    if(!ready){if(pl)detachSend(pl);showStrip(det,need,prev);return false;}
+    hideStrip();
+    if(pl){attachSend(pl);return true;}
+    var c=card('Your request \u00b7 '+(REQ.side==='tech'?'Rooted Coast Tech':'Rooted Coast Design'),REQ.job,REQ.summary);c.id='reqcard';c.classList.add('req','ready','final');
+    if(det.length)rows(c,det.map(pair));
+    c.append(sendBox(c));
+    return true;
   }
   // The closing screen after a request is sent: what happens next, the page that matches what they asked about, a new chat, or back to the conversation.
   function sentView(contact){var old=$('sentview');if(old)old.remove();if(!REQ)return;
@@ -1602,7 +1733,7 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
     var v=el('div','sentview'),a=el('a','btn',pg[1]),nb=el('button','btn ghost','Start a new chat'),bk=el('button','sv-back','Back to the conversation'),acts=el('div','sv-acts');
     v.id='sentview';a.href=pg[0];nb.type='button';bk.type='button';acts.append(a,nb);
     v.append(el('div','label','Request sent'),el('h2',null,'Your request is with Johnathon.'),el('p',null,'He reads every request himself and replies within one business day.'),el('p','small',REQ.job+' · reply to '+contact),acts,bk);
-    document.querySelector('.col').append(v);document.documentElement.classList.add('sentview');
+    (document.querySelector('.col')||thread.parentNode).append(v);document.documentElement.classList.add('sentview');
     if(document.activeElement&&document.activeElement.blur)document.activeElement.blur();
     function close(){v.remove();document.documentElement.classList.remove('sentview');}
     bk.onclick=close;nb.onclick=function(){close();$('newchat').click();};}
@@ -1610,16 +1741,22 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
   (function(){var br=document.querySelector('a.brand');if(br)br.addEventListener('click',function(e){if(!document.documentElement.classList.contains('chatting'))return;e.preventDefault();var v=$('sentview');if(v){v.remove();document.documentElement.classList.remove('sentview');}$('newchat').click();});})();
   var TOOLS=[
     {name:'show_work',
-     execute:function(i){act('pulling up the work');var f=i.filter==='software'||i.filter==='websites'?i.filter:'all';var items=WORK.filter(function(w){return f==='all'||w[3]===f;});var c=card('Work','Live today');var u=el('ul','rows');items.forEach(function(w){var li=el('li');var a=el('a',null,w[0]);a.href=w[2];a.target='_blank';a.rel='noopener';var s=el('span');s.append(a);li.append(s,el('span',null,w[1]));u.append(li);});c.append(u);return {shown:items.map(function(w){return w[0]+' ('+w[1]+'): '+w[4];})};}},
+     execute:function(i){act('pulling up the work');var f=i.filter==='software'||i.filter==='websites'?i.filter:'all';var items=WORK.filter(function(w){return f==='all'||w[3]===f;});var c=card('Work \u00b7 live today','');c.classList.add('work');var u=el('ul','wk');items.forEach(function(w){var li=el('li');var a=el('a',null,w[0]);a.href=w[2];a.target='_blank';a.rel='noopener';li.append(a,el('p',null,w[4]));u.append(li);});c.append(u);return {shown:items.map(function(w){return w[0]+' ('+w[1]+'): '+w[4];})};}},
     {name:'show_pricing',
-     execute:function(i){act('checking the price list');if(i.side==='tech'){var tc=card('Prices','Rooted Coast Tech','Builds, repairs, upgrades and support are quoted by Johnathon before any work starts.');rows(tc,[['Diagnostic, drop-off',money(TECHFEE.drop)],['Diagnostic, at your place',money(TECHFEE.visit)]]);tc.append(el('p','small','The diagnostic fee comes off the repair if you go ahead.'));return {tech:'work is quoted individually',diagnostic:'drop-off '+money(TECHFEE.drop)+', visit '+money(TECHFEE.visit)+', credited toward the repair if they go ahead'};}if(i.package&&window.PAGE_PACKS&&window.PAGE_PACKS[i.package]){var pp=window.PAGE_PACKS[i.package],pc=card('Price',pp.name);rows(pc,[['Price',pp.price]].concat(pp.rows));return {shown:pp.name+', with its price and terms, on a card below your reply. Do not type the price.'};}var c=card('Prices','Rooted Coast Design');var ks=['starter','standard','custom','reskin','seo'];rows(c,ks.map(function(k){return [PRICES[k].name,(PRICES[k].from?'from ':'')+money(PRICES[k].price)];}).concat([['Custom software, smaller projects','$1,000 to $5,000'],['Care plans','from '+money(CARE[0][1])+'/mo']]));return {packages:ks.map(function(k){return PRICES[k].name+' '+(PRICES[k].from?'from ':'')+money(PRICES[k].price)+'. '+PRICES[k].detail;}),software:'smaller projects $1,000 to $5,000, larger quoted',care:CARE.map(function(x){return x[0]+' '+money(x[1])+'/mo';})};}},
+     execute:function(i){act('checking the price list');if(i.side==='tech'){var tc=card('Prices','Rooted Coast Tech','Builds, repairs, upgrades and support are quoted by Johnathon before any work starts.');rows(tc,[['Diagnostic, drop-off',money(TECHFEE.drop)],['Diagnostic, at your place',money(TECHFEE.visit)]]);tc.append(el('p','small','The diagnostic fee comes off the repair if you go ahead.'));return {tech:'work is quoted individually',diagnostic:'drop-off '+money(TECHFEE.drop)+', visit '+money(TECHFEE.visit)+', credited toward the repair if they go ahead'};}if(i.package&&window.PAGE_PACKS&&window.PAGE_PACKS[i.package]){var pp=window.PAGE_PACKS[i.package],pc=card('Price',pp.name);rows(pc,[['Price',pp.price]].concat(pp.rows));return {shown:pp.name+', with its price and terms, on a card below your reply. Do not type the price.'};}var c=card('Prices','Rooted Coast Design');var ks=['starter','standard','custom','reskin','seo'];rows(c,ks.map(function(k){return [PRICES[k].name,(PRICES[k].from?'from ':'')+money(PRICES[k].price)];}).concat([['Custom software','$1,000 to $5,000'],['Care plans','from '+money(CARE[0][1])+'/mo']]));return {packages:ks.map(function(k){return PRICES[k].name+' '+(PRICES[k].from?'from ':'')+money(PRICES[k].price)+'. '+PRICES[k].detail;}),software:'smaller projects $1,000 to $5,000, larger quoted',care:CARE.map(function(x){return x[0]+' '+money(x[1])+'/mo';})};}},
     {name:'update_request',
      
-     execute:function(i){act('updating your request');var can=request(i);return can?{ok:true,can_send:true}:{ok:true,can_send:false,note:'Not sendable yet. It needs at least two details and nothing left in still_needed. If the visitor asked to send it, add what they told you as details and call this again with ready true; otherwise ask the next most useful question.'};}},
+     execute:function(i){act('updating your request');var can=request(i),rep=repeatQ();if(rep)return {ok:true,can_send:!!can,stop_asking:'Your last two replies both asked this: \"'+rep+'\" The visitor has not answered it twice. Do not ask it again in any words, and leave it out of still_needed. Ask about something else, or nothing.'};return can?{ok:true,can_send:true}:{ok:true,can_send:false,note:'Not sendable yet. It needs at least two details and nothing left in still_needed. If the visitor asked to send it, add what they told you as details and call this again with ready true; otherwise ask the next most useful question.'};}},
     {name:'plan_website',
-     execute:function(i){act('planning the site');var k=['starter','standard','custom','reskin'].indexOf(i.package)>-1?i.package:'standard',p=PRICES[k],tot=p.price;var c=card('Website plan',clip(i.business||'Your website',60),arr(i.pages,8,24).join(' · '));var r=[[p.name,(p.from?'from ':'')+money(p.price)]],ad=[];arr(i.addons,6).forEach(function(a){if(ADDONS[a]){r.push([ADDONS[a][0],'quoted']);ad.push(ADDONS[a][0]);}});rows(c,r);if(ad.length)c.append(el('p','small','Add-ons are priced with your quote.'));var buy=ad.length?['Request a quote','request.html?need=website']:k==='starter'?['See Starter','starter.html']:k==='standard'?['See Standard','standard.html']:k==='custom'?['See Custom','custom.html']:['Request a quote','request.html?need=website'];var go=el('a','btn card-go',buy[0]+' →');go.href=buy[1];c.append(go);return {package:p.name,detail:p.detail,package_price:(p.from?'from ':'')+money(p.price),addons:ad,button:buy[0],note:'Add-on prices are not published. Johnathon quotes them. The card has its own '+buy[0]+' button, so do not send the visitor elsewhere to '+(k==='starter'||k==='standard'?'order':'ask for a quote')+'.'};}},
+     execute:function(i){act('planning the site');var k=['starter','standard','custom','reskin'].indexOf(i.package)>-1?i.package:'standard',p=PRICES[k],tot=p.price;var op=$('plancard');if(op&&!op.classList.contains('sent')){keepContact(op);op.remove();}var c=card('Website plan',clip(i.business||'Your website',60),arr(i.pages,8,24).join(' · '));var r=[[p.name,(p.from?'from ':'')+money(p.price)]],ad=[];arr(i.addons,6).forEach(function(a){if(ADDONS[a]){r.push([ADDONS[a][0],'quoted']);ad.push(ADDONS[a][0]);}});rows(c,r);if(ad.length)c.append(el('p','small','Add-ons are priced with your quote.'));var buy=ad.length?['Request a quote','request.html?need=website']:k==='starter'?['See Starter','starter.html']:k==='standard'?['See Standard','standard.html']:k==='custom'?['See Custom','custom.html']:['Request a quote','request.html?need=website'];var go=el('a','btn card-go',buy[0]+' →');go.href=buy[1];c.append(go);c.id='plancard';c.dataset.turn=String(window.__morTurn||0);c.classList.add('final');if(!ad.length&&(k==='starter'||k==='standard'))c.dataset.direct='1';if(REQ&&REQ.ready&&REQ.side==='design'&&!REQ.sent){hideStrip();var oc=$('reqcard');if(oc&&!oc.classList.contains('sent')){keepContact(oc);oc.remove();}attachSend(c);}return {package:p.name,detail:p.detail,package_price:(p.from?'from ':'')+money(p.price),addons:ad,button:buy[0],note:'Add-on prices are not published. Johnathon quotes them. The card has its own '+buy[0]+' button, so do not send the visitor elsewhere to '+(k==='starter'||k==='standard'?'order':'ask for a quote')+'.'};}},
     {name:'show_care',
-     execute:function(i){act('checking the care plans');var want=String(i.plan||'all').toLowerCase(),list=CARE.filter(function(x){return want==='all'||x[0].toLowerCase()===want;});if(!list.length)list=CARE;list.forEach(function(x){var c=card('Care plan',x[0],(x[3]?'from ':'')+money(x[1])+' a month');var u=el('ul','rows');x[2].forEach(function(t){var li=el('li');li.append(el('span',null,t));u.append(li);});c.append(u);});return {plans:list.map(function(x){return {name:x[0],price:(x[3]?'from ':'')+money(x[1])+' a month',includes:x[2]};})};}},
+     // compact (Johnathon, 2026-11-15: "huge for no reason"): one card; each plan is a name, a price and one short line, or for one plan a short list
+     execute:function(i){act('checking the care plans');var want=String(i.plan||'all').toLowerCase(),list=CARE.filter(function(x){return want==='all'||x[0].toLowerCase()===want;});if(!list.length)list=CARE;
+       var pr=function(x){return (x[3]?'from ':'')+money(x[1])+'/mo';},c=el('div','card care');c.append(el('div','label',list.length>1?'Care plans':'Care plan'));
+       if(list.length>1){var u=el('ul','cp');list.forEach(function(x){var li=el('li'),h=el('div','h');h.append(el('b',null,x[0]),el('span',null,pr(x)));li.append(h,el('p',null,x[2].filter(function(t){return !/^Everything in/.test(t);}).slice(0,2).join(' · ')));u.append(li);});c.append(u);}
+       else{var x=list[0],h1=el('div','h one');h1.append(el('b',null,x[0]),el('span',null,pr(x)));c.append(h1);var ul=el('ul','inc');x[2].forEach(function(t){ul.append(el('li',null,t));});c.append(ul);}
+       (lastTurnOrThread()).append(c);bottom();
+       return {plans:list.map(function(x){return {name:x[0],price:(x[3]?'from ':'')+money(x[1])+' a month',includes:x[2]};})};}},
   ];
 
   // ---------- Conversation ----------
@@ -1669,12 +1806,15 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
     if(final&&sug)chips(sug.split('|').map(function(x){return clip(x.trim(),50);}).filter(Boolean).slice(0,3));
     return text;
   }
-  function done(out,r){r=tidy(r,true)||'Tell me a little more and I will work out what it takes.';core('speaking');if(out._rt)out.classList.remove('typing');else out.className='msg ai arrive';out.textContent=r;addLinks(out);turns.push({role:'assistant',content:r});ROOTS.done();}
+  function streamTo(out,tx){var s0=out._s||'';if(s0&&tx.indexOf(s0)!==0)return false;var add=tx.slice(s0.length);if(add){var sp=el('span','sw');sp.textContent=add;out.append(sp);}out._s=tx;return true;}
+  function done(out,r){r=tidy(r,true)||'Tell me a little more and I will work out what it takes.';core('speaking');if(out._rt)out.classList.remove('typing');else out.className='msg ai arrive';if(!(out._rt&&streamTo(out,r)))out.textContent=r;addLinks(out);turns.push({role:'assistant',content:r});ROOTS.done();}
   function send(text){
     text=clip(String(text).trim(),1200);if(!text||busy)return;
     document.documentElement.classList.add('chatting');$('newchat').hidden=false;
+    // phones: Send puts the keyboard away (Johnathon, 2026-11-15); the field only opens it again when tapped
+    if(!matchMedia('(hover:hover)').matches)q.blur();
     var turn=el('div','turn');thread.append(turn);turn.append(el('div','msg me'+(window.__quiet?' hid':''),text));window.__quiet=false;q.value='';grow();chips([]);turns.push({role:'user',content:text});
-    busy=true;go.disabled=true;core('thinking');ROOTS.send();
+    window.__morTurn=(window.__morTurn||0)+1;busy=true;go.disabled=true;core('thinking');ROOTS.send();
     var out=el('div','msg think');out.innerHTML='<i></i><i></i><i></i>';turn.append(out,chipsEl);cur=out;bottom();
     (live?ask(out):demo(text)).then(function(r){done(out,r);if(window.PAGE_AFTER){try{window.PAGE_AFTER(text,r,{run:run,req:function(){return REQ;},chips:chips});}catch(e){}}})
       .catch(function(e){var c=e&&e.code;
@@ -1684,7 +1824,7 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
   }
   function ask(out){
     var hist=turns.slice(-20);while(hist.length&&hist[0].role!=='user')hist.shift();var input=[{role:'user',content:RULES+"\n\nThe conversation follows."}].concat(hist);
-    var o={modelTier:'quick',onText:function(u){var tx=tidy(u.text,false);if(!tx)return;core('speaking');if(!out._rt){out._rt=1;ROOTS.reply();out.className='msg ai typing arrive';}out.textContent=tx;bottom();}};
+    var o={modelTier:'quick',onText:function(u){var tx=tidy(u.text,false);if(!tx)return;core('speaking');if(!out._rt){out._rt=1;ROOTS.reply();out.className='msg ai typing arrive';}if(!streamTo(out,tx)){out.textContent=tx;out._s=tx;}bottom();}};
     if(toolsOk)o.tools=TOOLS;else o.cache=false;
     return sample(input,o).then(function(r){return r.text.trim();}).catch(function(e){if(e&&e.code==='tools_unavailable'&&toolsOk){toolsOk=false;return ask(out);}throw e;});
   }
@@ -1708,6 +1848,7 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
     else{r='This copy of the page is in demo mode, so I am not really thinking here. I only have a few scripted answers. Open the live link to talk to the real me.';chips(START);}
     res(r);},900);});}
 
+  $('newchat').addEventListener('click',function(){if(busy||!strip)return;strip.hidden=true;strip.classList.remove('gone');panel.hidden=true;strip.setAttribute('aria-expanded','false');});
   $('newchat').onclick=function(){if(busy)return;turns=[];ds={};REQ=null;thread.innerHTML='';thread.append(chipsEl);$('dossier').innerHTML='';$('reqpill').hidden=true;document.documentElement.classList.remove('has-req');this.hidden=true;chips(START);};
 
   // ---------- Work: a list that drives one screen ----------
@@ -1729,7 +1870,7 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
       send(b.dataset.ask);
     }else openChat(b,true);
   });
-  $('start').addEventListener('click',function(e){return;e.preventDefault();window.scrollTo({top:0,behavior:calm?'auto':'smooth'});setTimeout(function(){q.focus({preventScroll:true});},calm?0:700);});
+  $('start').addEventListener('click',function(e){return;e.preventDefault();window.scrollTo({top:0,behavior:calm?'auto':'smooth'});setTimeout(function(){if(matchMedia('(hover:hover)').matches)q.focus({preventScroll:true});},calm?0:700);});
 
   (function(){var sc=document.querySelector('.scene');function onS(){var y=window.scrollY,h=window.innerHeight;document.documentElement.classList.toggle('past',y>24);sc.style.opacity=document.documentElement.classList.contains('chatting')?1:Math.max(0,1-y/(h*.8)).toFixed(3);}
     window.addEventListener('scroll',onS,{passive:true});onS();})();
@@ -1748,7 +1889,8 @@ a.w-ord.w-solid{background:var(--ink);width:auto}a.w-ord.w-solid:hover{backgroun
     dock.inert=false;
     rootEl.classList.add('chatting');
     fit();
-    (focusInput?q:$('dockclose')).focus({preventScroll:true});
+    // phones: opening the chat never opens the keyboard; the visitor taps the field (Johnathon, 2026-11-15)
+    (focusInput&&matchMedia('(hover:hover)').matches?q:$('dockclose')).focus({preventScroll:true});
   }
   function closeChat(){
     if(dock.inert)return;
