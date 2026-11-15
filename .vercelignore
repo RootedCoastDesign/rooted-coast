@@ -1,0 +1,5 @@
+# Files the live site does not need
+*.md
+test/
+check-prices.js
+dev-server.js

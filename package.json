@@ -1,0 +1,20 @@
+{
+  "name": "rooted-coast-design",
+  "version": "1.0.0",
+  "description": "Rooted Coast Design website and Vercel serverless functions",
+  "scripts": {
+    "check-prices": "node check-prices.js",
+    "test": "node check-prices.js && npm run test:quotes",
+    "test:quotes": "node test/pq-e2e.js && node test/pq-widget.test.js && node test/pq-theme.test.js",
+    "dev": "node dev-server.js"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
+    "@neondatabase/serverless": "^1.1.0",
+    "@vercel/blob": "^2.8.0",
+    "stripe": "^14.0.0"
+  },
+  "devDependencies": {
+    "jsdom": "^30.0.1"
+  }
+}

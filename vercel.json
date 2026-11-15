@@ -1,0 +1,229 @@
+{
+  "functions": {
+    "api/create-checkout.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/pq/upload.js": {
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "api/pq/submit.js": {
+      "memory": 512,
+      "maxDuration": 30
+    },
+    "api/pq/lead.js": {
+      "memory": 256,
+      "maxDuration": 10
+    },
+    "api/mor.js": {
+      "memory": 256,
+      "maxDuration": 30
+    },
+    "api/quote.js": {
+      "memory": 256,
+      "maxDuration": 15
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/quote",
+      "destination": "/quote.html"
+    },
+    {
+      "source": "/lead/:slug/:id",
+      "destination": "/api/pq/lead?slug=:slug&id=:id"
+    },
+    {
+      "source": "/quote/:slug",
+      "destination": "/quote.html?site=:slug"
+    },
+    {
+      "source": "/websites",
+      "destination": "/websites.html"
+    },
+    {
+      "source": "/tech",
+      "destination": "/tech.html"
+    },
+    {
+      "source": "/software",
+      "destination": "/software.html"
+    },
+    {
+      "source": "/about",
+      "destination": "/about.html"
+    },
+    {
+      "source": "/contact",
+      "destination": "/contact.html"
+    },
+    {
+      "source": "/request",
+      "destination": "/request.html"
+    },
+    {
+      "source": "/cart",
+      "destination": "/cart.html"
+    },
+    {
+      "source": "/terms",
+      "destination": "/terms.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/privacy.html"
+    },
+    {
+      "source": "/service-areas",
+      "destination": "/service-areas.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/pq-widget.js",
+      "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=300, s-maxage=3600, stale-while-revalidate=86400"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/lib/:path*",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/api/_:file",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/shop",
+      "destination": "/websites.html#pricing",
+      "permanent": true
+    },
+    {
+      "source": "/shop.html",
+      "destination": "/websites.html#pricing",
+      "permanent": true
+    },
+    {
+      "source": "/services",
+      "destination": "/websites.html",
+      "permanent": true
+    },
+    {
+      "source": "/services.html",
+      "destination": "/websites.html",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/websites.html#work",
+      "permanent": true
+    },
+    {
+      "source": "/portfolio.html",
+      "destination": "/websites.html#work",
+      "permanent": true
+    },
+    {
+      "source": "/process",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/process.html",
+      "destination": "/about.html",
+      "permanent": true
+    },
+    {
+      "source": "/card-builder",
+      "destination": "/websites.html#pricing",
+      "permanent": true
+    },
+    {
+      "source": "/card-builder.html",
+      "destination": "/websites.html#pricing",
+      "permanent": true
+    },
+    {
+      "source": "/sticker-builder",
+      "destination": "/websites.html#pricing",
+      "permanent": true
+    },
+    {
+      "source": "/sticker-builder.html",
+      "destination": "/websites.html#pricing",
+      "permanent": true
+    },
+    {
+      "source": "/caddie-card",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/caddie-card.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/conditions",
+      "destination": "https://coastconditions.com/oregon/south",
+      "permanent": false
+    },
+    {
+      "source": "/conditions/:path*",
+      "destination": "https://coastconditions.com/:path*",
+      "permanent": false
+    },
+    {
+      "source": "/client-intake",
+      "destination": "/request.html",
+      "permanent": false
+    },
+    {
+      "source": "/client-intake.html",
+      "destination": "/request.html",
+      "permanent": false
+    },
+    {
+      "source": "/intake-andrew",
+      "destination": "/request.html",
+      "permanent": false
+    },
+    {
+      "source": "/intake-andrew.html",
+      "destination": "/request.html",
+      "permanent": false
+    },
+    {
+      "source": "/intake-coastal",
+      "destination": "/request.html",
+      "permanent": false
+    },
+    {
+      "source": "/intake-coastal.html",
+      "destination": "/request.html",
+      "permanent": false
+    },
+    {
+      "source": "/care-coastal",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/care-coastal.html",
+      "destination": "/",
+      "permanent": false
+    }
+  ]
+}

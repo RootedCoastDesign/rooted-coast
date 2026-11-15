@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# Local environment
+.env
+.env.*
+!.env.example
+
+# Deploy and editor files
+.vercel/
+.DS_Store
+Thumbs.db
